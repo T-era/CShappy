@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F7629C62-6711-490F-ACFD-B43C1A99247B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Jappy</RootNamespace>
+    <AssemblyName>Jappy</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Context.cs" />
+    <Compile Include="Control\KeyboardControl.cs" />
+    <Compile Include="Direction.cs" />
+    <Compile Include="Fields\Field.cs" />
+    <Compile Include="Fields\Stages\IStage.cs" />
+    <Compile Include="Fields\Stages\TestStage.cs" />
+    <Compile Include="Fields\Stages\TestStage2.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GameView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Item.cs" />
+    <Compile Include="Items\Block.cs" />
+    <Compile Include="Items\BlueBlock.cs" />
+    <Compile Include="Items\BlueStone.cs" />
+    <Compile Include="Items\Enemy.cs" />
+    <Compile Include="Items\Jappy.cs" />
+    <Compile Include="Items\Mush.cs" />
+    <Compile Include="Items\NormalStone.cs" />
+    <Compile Include="Items\Snake.cs" />
+    <Compile Include="Items\State\EnemyDying.cs" />
+    <Compile Include="Items\Stone.cs" />
+    <Compile Include="Items\Rmb.cs" />
+    <Compile Include="IView.cs" />
+    <Compile Include="MoveMotion\Move.cs" />
+    <Compile Include="MoveMotion\MoveEach.cs" />
+    <Compile Include="Position.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MushroomView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Block.bmp" />
+    <EmbeddedResource Include="Images\BlueBlock.bmp" />
+    <EmbeddedResource Include="Images\BlueStone.bmp" />
+    <EmbeddedResource Include="Images\Mushroom.bmp" />
+    <EmbeddedResource Include="Images\Snake_Dying1.bmp" />
+    <EmbeddedResource Include="Images\Snake_Dying2.bmp" />
+    <EmbeddedResource Include="Images\Snake_L1.bmp" />
+    <EmbeddedResource Include="Images\Snake_L2.bmp" />
+    <EmbeddedResource Include="Images\Snake_R1.bmp" />
+    <EmbeddedResource Include="Images\Snake_R2.bmp" />
+    <EmbeddedResource Include="Images\Stone.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Jappy_D1.bmp" />
+    <EmbeddedResource Include="Images\Jappy_D2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\StoneBroken0.bmp" />
+    <EmbeddedResource Include="Images\StoneBroken1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Jappy_L1.bmp" />
+    <EmbeddedResource Include="Images\Jappy_L2.bmp" />
+    <EmbeddedResource Include="Images\Jappy_R1.bmp" />
+    <EmbeddedResource Include="Images\Jappy_R2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Jappy_U1.bmp" />
+    <EmbeddedResource Include="Images\Jappy_U2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Snake_Sleeping1.bmp" />
+    <EmbeddedResource Include="Images\Snake_Sleeping2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Rmb_D1.bmp" />
+    <EmbeddedResource Include="Images\Rmb_D2.bmp" />
+    <EmbeddedResource Include="Images\Rmb_L1.bmp" />
+    <EmbeddedResource Include="Images\Rmb_L2.bmp" />
+    <EmbeddedResource Include="Images\Rmb_R1.bmp" />
+    <EmbeddedResource Include="Images\Rmb_R2.bmp" />
+    <EmbeddedResource Include="Images\Rmb_S1.bmp" />
+    <EmbeddedResource Include="Images\Rmb_U1.bmp" />
+    <EmbeddedResource Include="Images\Rmb_U2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Rmb_Dying1.bmp" />
+    <EmbeddedResource Include="Images\Rmb_Dying2.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
