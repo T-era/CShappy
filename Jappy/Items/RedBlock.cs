@@ -10,16 +10,16 @@ namespace Jappy.Items
 {
     using Fields;
 
-    class BlueBlock : ColoredBlock
+    class RedBlock : ColoredBlock
     {
         private readonly static new Image image = Image.FromStream(
-            typeof(Me).Assembly.GetManifestResourceStream("Jappy.Images.BlueBlock.bmp"));
-        public override Color Color { get { return Color.Blue; } }
+            typeof(Me).Assembly.GetManifestResourceStream("Jappy.Images.RedBlock.bmp"));
+        public override Color Color { get { return Color.Red; } }
 
         public override int Width { get { return 2; } }
         public override int Height { get { return 1; } }
 
-        internal BlueBlock(Field field) : base(field) { }
+        internal RedBlock(Field field) : base(field) { }
 
         protected override void DrawAt(Graphics g, int x, int y, bool animMode)
         {

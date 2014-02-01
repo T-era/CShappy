@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Jappy.Fields.Stages
 {
-    class TestStage2 : IStage
+    class WellStage : IStage
     {
         public IList<Item> GetItems(Field that)
         {

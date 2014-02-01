@@ -61,7 +61,7 @@ namespace Jappy
         protected override void OnKeyUp(KeyEventArgs e)
         {
             base.OnKeyUp(e);
-            context.ReleaseKey(e.KeyCode);
+            context.ReleaseKey(e);
         }
     }
 }

@@ -18,17 +18,19 @@ namespace Jappy.Control
             keyStack = keyCode;
             isReleased = false;
         }
-        internal void ReleaseKey(Keys keyCode)
+        internal void ReleaseKey(KeyEventArgs key)
         {
-            if (keyStack == keyCode)
+            if (keyStack == key.KeyCode)
             {
                 isReleased = true;
+                if (key.Shift) keyStack = null;
             }
         }
         internal Keys? PullStack()
         {
             Keys? ret = keyStack;
-            if (isReleased) keyStack = null;
+            if (isReleased
+                || keyStack == Keys.Space) keyStack = null;
             return ret;
         }
     }

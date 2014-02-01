@@ -40,9 +40,9 @@ namespace Jappy
         {
             control.PushKey(keyCode);
         }
-        internal void ReleaseKey(Keys keyCode)
+        internal void ReleaseKey(KeyEventArgs key)
         {
-            control.ReleaseKey(keyCode);
+            control.ReleaseKey(key);
         }
         internal void Step(object nullObj)
         {
@@ -250,21 +250,7 @@ namespace Jappy
 
         private bool Cleared()
         {
-            Item blueStone = null;
-            Item blueBlock = null;
-            Field.ForEach((item) =>
-            {
-                if (item is BlueStone)
-                {
-                    blueStone = item;
-                }
-                if (item is BlueBlock)
-                {
-                    blueBlock = item;
-                }
-            });
-            return blueStone.X == blueBlock.X
-                && blueStone.Y == blueBlock.Y - 2;
+            return Field.IsCleared();
         }
     }
 }

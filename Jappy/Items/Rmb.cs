@@ -61,7 +61,7 @@ namespace Jappy.Items
                 return true;
             }
             Move move;
-            if (Distance2(this.Position, field.Me.Position) < 100
+            if (Distance2(this.Position, field.Me.Position) < 150
                 && Rnd.Next(10) < 8)
             {
                 move = FromTo(this.Position, field.Me.Position);
@@ -86,11 +86,8 @@ namespace Jappy.Items
                 }
             }
             this.direction = move.Direction;
-//            Tuple<Position, Position, Position> next = FromHere(direction);
             Item aten1 = field[move.NewCome1(this.Position)];
             Item aten2 = field[move.NewCome2(this.Position)];
-//            Item aten1 = field.At(next.Item2.X, next.Item2.Y);
-//            Item aten2 = field.At(next.Item3.X, next.Item3.Y);
 
             if (aten1 is Stone || aten1 is Block
                 || aten2 is Stone || aten2 is Block)
@@ -109,7 +106,8 @@ namespace Jappy.Items
             else if (aten1 is Mush
                 || aten2 is Mush)
             {
-                // TODO どうしよう
+                if (aten1 != null) field.Remove(aten1);
+                if (aten2 != null) field.Remove(aten2);
             }
             move.Direction.Move(this);
             return true;
@@ -149,18 +147,7 @@ namespace Jappy.Items
         {
             var adx = Math.Abs(from.X - to.X);
             var ady = Math.Abs(from.Y - to.Y);
-            if (adx == ady)
-            {
-                if (Rnd.Next(2) == 0)
-                {
-                    return FromToHorizontial(from, to);
-                }
-                else
-                {
-                    return FromToVertical(from, to);
-                }
-            }
-            else if (adx > ady)
+            if (Rnd.Next(adx + ady) < adx)
             {
                 return FromToHorizontial(from, to);
             }

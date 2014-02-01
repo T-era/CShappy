@@ -52,8 +52,12 @@
     <Compile Include="Direction.cs" />
     <Compile Include="Fields\Field.cs" />
     <Compile Include="Fields\Stages\IStage.cs" />
+    <Compile Include="Fields\Stages\DatStage.cs" />
     <Compile Include="Fields\Stages\TestStage.cs" />
-    <Compile Include="Fields\Stages\TestStage2.cs" />
+    <Compile Include="Fields\Stages\WellStage.cs" />
+    <Compile Include="Fields\Stages\GunManStage.cs" />
+    <Compile Include="Fields\Stages\SimpleStage.cs" />
+    <Compile Include="Fields\Stages\SimpleStage2.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,11 +67,13 @@
     <Compile Include="GameView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="IO\DatFileReader.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Items\Block.cs" />
     <Compile Include="Items\BlueBlock.cs" />
     <Compile Include="Items\BlueStone.cs" />
     <Compile Include="Items\Enemy.cs" />
+    <Compile Include="Items\ColoredStone.cs" />
     <Compile Include="Items\Jappy.cs" />
     <Compile Include="Items\Mush.cs" />
     <Compile Include="Items\NormalStone.cs" />
@@ -75,6 +81,13 @@
     <Compile Include="Items\State\EnemyDying.cs" />
     <Compile Include="Items\Stone.cs" />
     <Compile Include="Items\Rmb.cs" />
+    <Compile Include="Items\ColoredBlock.cs" />
+    <Compile Include="Items\RedBlock.cs" />
+    <Compile Include="Items\RedStone.cs" />
+    <Compile Include="Items\GreenBlock.cs" />
+    <Compile Include="Items\GreenStone.cs" />
+    <Compile Include="Items\YellowBlock.cs" />
+    <Compile Include="Items\YellowStone.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="MoveMotion\Move.cs" />
     <Compile Include="MoveMotion\MoveEach.cs" />
@@ -96,6 +109,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="StageDat\Pyramid1.dat" />
+    <EmbeddedResource Include="StageDat\Pyramid2.dat" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -105,6 +120,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="StageDat\Bridges.dat" />
+    <EmbeddedResource Include="StageDat\Cave.dat" />
+    <EmbeddedResource Include="StageDat\RainyDay.dat" />
+    <EmbeddedResource Include="StageDat\Stairs.dat" />
+    <EmbeddedResource Include="StageDat\Guillotine.dat" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -158,6 +178,14 @@
   <ItemGroup>
     <EmbeddedResource Include="Images\Rmb_Dying1.bmp" />
     <EmbeddedResource Include="Images\Rmb_Dying2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\GreenBlock.bmp" />
+    <EmbeddedResource Include="Images\GreenStone.bmp" />
+    <EmbeddedResource Include="Images\RedBlock.bmp" />
+    <EmbeddedResource Include="Images\RedStone.bmp" />
+    <EmbeddedResource Include="Images\YellowBlock.bmp" />
+    <EmbeddedResource Include="Images\YellowStone.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

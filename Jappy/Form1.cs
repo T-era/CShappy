@@ -15,13 +15,39 @@ namespace Jappy
 
     public partial class Form1 : Form
     {
+        private static readonly IStage[] Stages = new IStage[] {
+            new SimpleStage(),
+            new SimpleStage2(),
+            new DatStage("Jappy.StageDat.Pyramid1.dat"),
+            new DatStage("Jappy.StageDat.Cave.dat"),
+            new DatStage("Jappy.StageDat.Bridges.dat"),
+            new DatStage("Jappy.StageDat.Pyramid2.dat"),
+            new DatStage("Jappy.StageDat.Guillotine.dat"),
+            new DatStage("Jappy.StageDat.Stairs.dat"),
+            new DatStage("Jappy.StageDat.RainyDay.dat"),
+            new WellStage(),
+            new GunManStage(),
+        };
         public Form1()
         {
             InitializeComponent();
 
-            Field f = new Field(new TestStage2());
+            Field f = new Field();
             panel1.Field = f;
+f.SetStage(Stages[6]);
             f.mushroomChanged += mushroomView1.OnInPocketChange;
+            for (int i = 0; i < Stages.Length; i++)
+            {
+                IStage stage = Stages[i];
+                ToolStripItem tsi = new ToolStripMenuItem(
+                    "Stage" + i,
+                    null,
+                    (o, e) =>
+                    {
+                        f.SetStage(stage);
+                    });
+                stageToolStripMenuItem.DropDownItems.Add(tsi);
+            }
         }
         protected override void OnPaintBackground(PaintEventArgs e)
         {

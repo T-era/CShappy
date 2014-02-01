@@ -15,9 +15,11 @@ namespace Jappy.Fields
         public const int HEIGHT = 20;
         private readonly Items.Block OUTLINE;
 
-        private IList<Item> all;
-        private IList<Item> fallable = new List<Item>();
-        private IList<Enemy> enemies = new List<Enemy>();
+        private IList<Item> all = new List<Item>();
+        private readonly IList<Item> fallable = new List<Item>();
+        private readonly IList<Enemy> enemies = new List<Enemy>();
+        private readonly IDictionary<ColoredStone, ColoredBlock> goals = new Dictionary<ColoredStone, ColoredBlock>();
+
         internal Me Me { get; private set; }
 
         private int mushInPocket;
@@ -34,18 +36,29 @@ namespace Jappy.Fields
 
         public Item this[Position p] { get { return At(p.X, p.Y); } }
 
-        public Field(IStage stage) {
+        public Field() {
             OUTLINE = new Items.Block(this);
-            SetAll(stage.GetItems(this));
         }
 
-        protected void SetAll(IList<Item> items)
-        {
+        internal void SetStage(IStage stage) {
+            IList<Item> items = stage.GetItems(this);
+            all.Clear();
+            fallable.Clear();
+            enemies.Clear();
+            goals.Clear();
+            Me = null;
+
             foreach (Item item in items)
             {
                 if (item is Me) Me = (Me)item;
                 if (item is Mush || item is Stone) fallable.Add(item);
                 if (item is Enemy) enemies.Add((Enemy)item);
+                if (item is ColoredStone) goals[(ColoredStone)item]
+                    = items
+                        .Where(t => t is ColoredBlock)
+                        .Where(t => ((ColoredBlock)t).Color == ((ColoredStone)item).Color)
+                        .Select(t => (ColoredBlock)t)
+                        .Single();
             }
             all = items;
         }
@@ -90,6 +103,22 @@ namespace Jappy.Fields
             all.Remove(item);
             fallable.Remove(item);
             if (item is Enemy) enemies.Remove((Enemy)item);
+        }
+        internal bool IsCleared()
+        {
+            if (goals.Count != 0)
+            {
+                foreach (var kv in goals)
+                {
+                    ColoredStone stone = kv.Key;
+                    ColoredBlock block = kv.Value;
+                    if (stone.X != block.X
+                        || stone.Y != block.Y - 2) return false;
+
+                }
+                return true;
+            }
+            return false;
         }
     }
 }
