@@ -38,28 +38,10 @@ namespace Jappy.Items
         private readonly static Image image_dying2 = Image.FromStream(
             typeof(Me).Assembly.GetManifestResourceStream("Jappy.Images.Rmb_Dying2.bmp"));
 
-        private int height = 2;
-        private int sleeping = 0;
-        private Direction direction = Direction.Down;
-        private EnemyDying dying = EnemyDying.Fine;
-
         internal Rmb(Field field) : base(field) { }
 
-        public override void Sleep()
+        protected override Move DecideNextMove(Field field)
         {
-            sleeping = 20;
-        }
-        public override bool Move(Field field)
-        {
-            if (dying != EnemyDying.Fine)
-            {
-                return true;
-            }
-            if (sleeping > 0)
-            {
-                sleeping--;
-                return true;
-            }
             Move move;
             if (Distance2(this.Position, field.Me.Position) < 150
                 && Rnd.Next(10) < 8)
@@ -85,32 +67,7 @@ namespace Jappy.Items
                         throw new Exception("アリエン");
                 }
             }
-            this.direction = move.Direction;
-            Item aten1 = field[move.NewCome1(this.Position)];
-            Item aten2 = field[move.NewCome2(this.Position)];
-
-            if (aten1 is Stone || aten1 is Block
-                || aten2 is Stone || aten2 is Block)
-            {
-                return true;
-            }
-            else if (aten1 is Me
-                || aten2 is Me)
-            {
-                move.Direction.Move(this);
-                return false;
-            } else if (aten1 is Enemy
-                || aten2 is Enemy) {
-                return true;
-            }
-            else if (aten1 is Mush
-                || aten2 is Mush)
-            {
-                if (aten1 != null) field.Remove(aten1);
-                if (aten2 != null) field.Remove(aten2);
-            }
-            move.Direction.Move(this);
-            return true;
+            return move;
         }
         private int Distance2(Position p1, Position p2)
         {
@@ -177,19 +134,6 @@ namespace Jappy.Items
             {
                 return MoveMotion.Move.Down;
             }
-        }
-        public override void Crush(Field field)
-        {
-            if (dying == EnemyDying.Fine)
-                dying = EnemyDying.Dying;
-            else if (dying == EnemyDying.Dying)
-            {
-                dying = EnemyDying.Die;
-                height = 1;
-                Y++;
-            }
-            else if (dying == EnemyDying.Die)
-                field.Remove(this);
         }
 
         protected override void DrawAt(Graphics g, int x, int y, bool animMode)
