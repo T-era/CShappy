@@ -32,7 +32,18 @@ namespace Jappy.Fields
             }
             get { return mushInPocket; }
         }
+        private int score;
+        internal int Score
+        {
+            set
+            {
+                score = value;
+                scoreChanged(score);
+            }
+            get { return score; }
+        }
         internal event Action<int> mushroomChanged;
+        internal event Action<int> scoreChanged;
 
         public Item this[Position p] { get { return At(p.X, p.Y); } }
 
@@ -42,6 +53,7 @@ namespace Jappy.Fields
 
         internal void SetStage(IStage stage) {
             IList<Item> items = stage.GetItems(this);
+            mushInPocket = 0;
             all.Clear();
             fallable.Clear();
             enemies.Clear();
@@ -53,8 +65,8 @@ namespace Jappy.Fields
                 if (item is Me) Me = (Me)item;
                 if (item is Mush || item is Stone) fallable.Add(item);
                 if (item is Enemy) enemies.Add((Enemy)item);
-                if (item is ColoredStone) goals[(ColoredStone)item]
-                    = items
+                if (item is ColoredStone)
+                    goals[(ColoredStone)item] = items
                         .Where(t => t is ColoredBlock)
                         .Where(t => ((ColoredBlock)t).Color == ((ColoredStone)item).Color)
                         .Select(t => (ColoredBlock)t)

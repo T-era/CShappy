@@ -34,7 +34,6 @@ namespace Jappy.Items
 
         internal Snake(Field field) : base(field) { }
 
-
         protected override Move DecideNextMove(Field field)
         {
             if (Math.Abs(field.Me.Y - this.Y) <= 1

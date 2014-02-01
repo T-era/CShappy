@@ -20,20 +20,25 @@ namespace Jappy
         internal event Action OnChange;
 
         internal readonly KeyboardControl control = new KeyboardControl();
-        internal Field Field { private set; get; }
+        private readonly Field field;
+        internal Field Field { get { return field; } }
         internal int Score { private set; get; }
         internal bool AnimationFlag { private set; get; }
 
+        private bool suspended;
         private System.Threading.Timer timer;
-        internal Context()
+        internal Context(Field field)
         {
+            Score = 0;
             OnChange += () => { };
-        }
-        internal void SetStage(Field stage)
-        {
-            Field = stage;
-            OnChange();
+            this.field = field;
             timer = new System.Threading.Timer(Step, null, 0, CLOCK_SIZE);
+        }
+
+        internal void Restart(bool decrementMe)
+        {
+            // TODO dec
+            suspended = false;
         }
 
         internal void PushKey(Keys keyCode)
@@ -46,32 +51,35 @@ namespace Jappy
         }
         internal void Step(object nullObj)
         {
-            bool alive = true;
-            MoveFlyingMush();
-            alive = alive && Fall();
-            alive = alive && MoveChars();
-            Animation();
-            OnChange();
-            if (!alive
-                || Cleared())
-                timer.Dispose();
+            if (!suspended)
+            {
+                bool alive = true;
+                MoveFlyingMush();
+                alive = alive && Fall();
+                alive = alive && MoveChars();
+                Animation();
+                OnChange();
+                if (!alive
+                    || Cleared())
+                    suspended = true;
+            }
         }
 
         private void MoveFlyingMush()
         {
-            Field.ForEach((item) =>
+            field.ForEach((item) =>
             {
                 if (item is FlyingMush)
                 {
                     FlyingMush fm = (FlyingMush)item;
                     if (fm.IsRand())
                     {
-                        Field.Remove(fm);
-                        if (Field[fm.Position] is Mush)
+                        field.Remove(fm);
+                        if (field[fm.Position] is Mush)
                         { }
                         else
                         {
-                            Field.Add(new Mush(Field) { X = fm.X, Y = fm.Y });
+                            field.Add(new Mush(field) { X = fm.X, Y = fm.Y });
                         }
                     }
                     else
@@ -89,7 +97,7 @@ namespace Jappy
                         else if (fm.Direction == Direction.Right)
                             newX++;
 
-                        Item crush = Field.At(newX, newY);
+                        Item crush = field.At(newX, newY);
                         if (crush == null)
                         {
                             fm.X = newX;
@@ -99,14 +107,14 @@ namespace Jappy
                         {
                             if (crush is Enemy)
                             {
-                                Field.Remove(fm);
+                                field.Remove(fm);
                                 ((Enemy)crush).Sleep();
                             }
                             else if (crush is Block
                                 || crush is Stone)
                             {
-                                Field.Remove(fm);
-                                Field.Add(new Mush(Field) { X = oldX, Y = oldY });
+                                field.Remove(fm);
+                                field.Add(new Mush(field) { X = oldX, Y = oldY });
                             }
                             else if (crush is Mush)
                             {
@@ -127,29 +135,29 @@ namespace Jappy
         private bool Fall()
         {
             bool alive = true;
-            Field.FallableForEach((item) =>
+            field.FallableForEach((item) =>
             {
                 if (item is Mush) {
-                    Item under = Field.At(item.X, item.Y + item.Height);
+                    Item under = field.At(item.X, item.Y + item.Height);
                     if (under == null || under is Mush || under is FlyingMush || under is Enemy || under is Me) {
                         item.Y ++;
                         if (under is Enemy) {
                             ((Enemy)under).Sleep();
-                            Field.Remove(item);
+                            field.Remove(item);
                         } else if (under is Me) {
-                            Field.MushInPocket ++;
-                            Field.Remove(item);
+                            field.MushInPocket ++;
+                            field.Remove(item);
                         }
                         else if (under is Mush)
                         {
-                            Field.Remove(under);
+                            field.Remove(under);
                         }
                     }
                 }
                 else if (item is Stone )
                 {
-                    Item under1 = Field.At(item.X, item.Y + item.Height);
-                    Item under2 = Field.At(item.X + 1, item.Y + item.Height);
+                    Item under1 = field.At(item.X, item.Y + item.Height);
+                    Item under2 = field.At(item.X + 1, item.Y + item.Height);
                     if (under1 == under2) under2 = null;
                     if ((under1 == null || under1 is Mush || under1 is Enemy || under1 is Me)
                         && (under2 == null || under2 is Mush || under2 is Enemy || under2 is Me))
@@ -159,11 +167,11 @@ namespace Jappy
                         {
                             if (under is Mush)
                             {
-                                Field.Remove(under);
+                                field.Remove(under);
                             }
                             else if (under is Enemy)
                             {
-                                ((Enemy)under).Crush(Field);
+                                ((Enemy)under).Crush(field);
                                 cancelFall = true;
                             }
                             else if (under is Me)
@@ -189,9 +197,9 @@ namespace Jappy
 
             if (alive)
             {
-                Field.EnemyForEach((item) =>
+                field.EnemyForEach((item) =>
                 {
-                    alive = alive && item.Move(Field);
+                    alive = alive && item.Move(field);
                 });
             }
             return alive;
@@ -201,47 +209,56 @@ namespace Jappy
             Keys? pushed = control.PullStack();
             if (pushed != null)
             {
-                Me me = null;
-                Field.ForEach((item) =>
-                {
-                    if (item is Me)
-                    {
-                        me = (Me)item;
-                    }
-                });
+                Me me = field.Me;
 
                 Keys key = pushed.Value;
                 if (key == Keys.Space
-                    && Field.MushInPocket > 0)
+                    && field.MushInPocket > 0)
                 {
-                    Field.MushInPocket--;
+                    int mushX;
+                    int mushY;
                     if (me.Direction == Direction.Up)
-                        Field.Add(new FlyingMush(Field, me.Direction, me.X, me.Y - 1));
+                    {
+                        mushX = me.X;
+                        mushY = me.Y - 1;
+                    }
                     else if (me.Direction == Direction.Down)
-                        Field.Add(new FlyingMush(Field, me.Direction, me.X, me.Y + 2));
+                    {
+                        mushX = me.X;
+                        mushY = me.Y + 2;
+                    }
                     else if (me.Direction == Direction.Left)
-                        Field.Add(new FlyingMush(Field, me.Direction, me.X - 1, me.Y));
+                    {
+                        mushX = me.X - 1;
+                        mushY = me.Y;
+                    }
                     else if (me.Direction == Direction.Right)
-                        Field.Add(new FlyingMush(Field, me.Direction, me.X + 2, me.Y));
+                    {
+                        mushX = me.X + 2;
+                        mushY = me.Y;
+                    }
+                    else throw new Exception("ありえーぬ");
+                    field.MushInPocket--;
+                    field.Add(new FlyingMush(field, me.Direction, mushX, mushY));
                     return true;
                 }
                 else
                 {
                     if (key == Keys.Up)
                     {
-                        return Move.Up.Go(Field, me.Position);
+                        return Move.Up.Go(field, me.Position);
                     }
                     else if (key == Keys.Down)
                     {
-                        return Move.Down.Go(Field, me.Position);
+                        return Move.Down.Go(field, me.Position);
                     }
                     else if (key == Keys.Right)
                     {
-                        return Move.Right.Go(Field, me.Position);
+                        return Move.Right.Go(field, me.Position);
                     }
                     else if (key == Keys.Left)
                     {
-                        return Move.Left.Go(Field, me.Position);
+                        return Move.Left.Go(field, me.Position);
                     }
                 }
             }
@@ -250,7 +267,7 @@ namespace Jappy
 
         private bool Cleared()
         {
-            return Field.IsCleared();
+            return field.IsCleared();
         }
     }
 }

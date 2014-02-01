@@ -97,6 +97,9 @@
     <Compile Include="MushroomView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ScoreView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -109,6 +112,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ScoreView.resx">
+      <DependentUpon>ScoreView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StageDat\Pyramid1.dat" />
     <EmbeddedResource Include="StageDat\Pyramid2.dat" />
     <None Include="Properties\Settings.settings">
@@ -125,6 +131,8 @@
     <EmbeddedResource Include="StageDat\RainyDay.dat" />
     <EmbeddedResource Include="StageDat\Stairs.dat" />
     <EmbeddedResource Include="StageDat\Guillotine.dat" />
+    <EmbeddedResource Include="StageDat\GridLike.dat" />
+    <EmbeddedResource Include="StageDat\T.dat" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

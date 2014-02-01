@@ -33,7 +33,10 @@ namespace Jappy.Items
                 Y++;
             }
             else if (dying == EnemyDying.Die)
+            {
+                field.Score += this.Score;
                 field.Remove(this);
+            }
         }
         public void Sleep()
         {

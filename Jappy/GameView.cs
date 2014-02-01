@@ -10,29 +10,27 @@ using System.Windows.Forms;
 namespace Jappy
 {
     using Fields;
+    using Fields.Stages;
 
     public class GameView : Panel
     {
         private static Pen BORDER_PEN = Pens.Black;
         internal const int BLOCK_SIZE = 20;
-        private Context context = new Context();
-        internal Field Field
-        {
-            set
-            {
-                context.SetStage(value);
-            }
-        }
-
-        public GameView() {
+        private Context context;
+        internal Context Context { set {
+            context = value;
             context.OnChange += () =>
             {
                 this.Invalidate();
             };
+        } }
+
+        public GameView() {
             this.DoubleBuffered = true;
             this.BackColor = Color.Black;
+            this.Focus();
         }
-
+            
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);

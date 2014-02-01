@@ -22,29 +22,35 @@ namespace Jappy
             new DatStage("Jappy.StageDat.Cave.dat"),
             new DatStage("Jappy.StageDat.Bridges.dat"),
             new DatStage("Jappy.StageDat.Pyramid2.dat"),
+            new DatStage("Jappy.StageDat.GridLike.dat"),
             new DatStage("Jappy.StageDat.Guillotine.dat"),
             new DatStage("Jappy.StageDat.Stairs.dat"),
             new DatStage("Jappy.StageDat.RainyDay.dat"),
             new WellStage(),
             new GunManStage(),
         };
+        private readonly Context context;
+        private readonly Field field = new Field();
+
         public Form1()
         {
             InitializeComponent();
+            this.context = new Context(field);
+            this.panel1.Context = this.context;
 
-            Field f = new Field();
-            panel1.Field = f;
-f.SetStage(Stages[6]);
-            f.mushroomChanged += mushroomView1.OnInPocketChange;
+field.SetStage(Stages[6]);
+            field.mushroomChanged += mushroomView1.OnInPocketChange;
+            field.scoreChanged += scoreView1.OnScoreChange;
             for (int i = 0; i < Stages.Length; i++)
             {
                 IStage stage = Stages[i];
                 ToolStripItem tsi = new ToolStripMenuItem(
-                    "Stage" + i,
+                    "Stage" + (i+1),
                     null,
                     (o, e) =>
                     {
-                        f.SetStage(stage);
+                        field.SetStage(stage);
+                        context.Restart(false);
                     });
                 stageToolStripMenuItem.DropDownItems.Add(tsi);
             }

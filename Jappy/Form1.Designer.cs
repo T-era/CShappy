@@ -33,6 +33,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.systemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scoreView1 = new Jappy.ScoreView();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,11 +79,22 @@
             this.stageToolStripMenuItem.Size = new System.Drawing.Size(64, 22);
             this.stageToolStripMenuItem.Text = "St(&a)ge";
             // 
+            // scoreView1
+            // 
+            this.scoreView1.BackColor = System.Drawing.Color.Black;
+            this.scoreView1.Font = new System.Drawing.Font("Cambria", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scoreView1.ForeColor = System.Drawing.Color.White;
+            this.scoreView1.Location = new System.Drawing.Point(440, 450);
+            this.scoreView1.Name = "scoreView1";
+            this.scoreView1.Size = new System.Drawing.Size(220, 39);
+            this.scoreView1.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(680, 508);
+            this.Controls.Add(this.scoreView1);
             this.Controls.Add(this.mushroomView1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
@@ -104,6 +116,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem systemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stageToolStripMenuItem;
+        private ScoreView scoreView1;
 
     }
 }
