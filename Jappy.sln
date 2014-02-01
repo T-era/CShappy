@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jappy", "Jappy\Jappy.csproj", "{F7629C62-6711-490F-ACFD-B43C1A99247B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphConverter", "GraphConverter\GraphConverter.csproj", "{6229B8D4-5E2F-4F09-A223-F55BBC62001E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +15,10 @@ Global
 		{F7629C62-6711-490F-ACFD-B43C1A99247B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7629C62-6711-490F-ACFD-B43C1A99247B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7629C62-6711-490F-ACFD-B43C1A99247B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6229B8D4-5E2F-4F09-A223-F55BBC62001E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6229B8D4-5E2F-4F09-A223-F55BBC62001E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6229B8D4-5E2F-4F09-A223-F55BBC62001E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6229B8D4-5E2F-4F09-A223-F55BBC62001E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
