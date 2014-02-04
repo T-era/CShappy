@@ -34,13 +34,12 @@
             this.systemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scoreView1 = new Jappy.ScoreView();
+            this.stockView1 = new Jappy.StockView();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Black;
             this.panel1.Location = new System.Drawing.Point(20, 40);
             this.panel1.Name = "panel1";
@@ -49,11 +48,10 @@
             // 
             // mushroomView1
             // 
-            this.mushroomView1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.mushroomView1.BackColor = System.Drawing.Color.Black;
-            this.mushroomView1.Location = new System.Drawing.Point(20, 440);
+            this.mushroomView1.Location = new System.Drawing.Point(226, 470);
             this.mushroomView1.Name = "mushroomView1";
-            this.mushroomView1.Size = new System.Drawing.Size(400, 60);
+            this.mushroomView1.Size = new System.Drawing.Size(200, 20);
             this.mushroomView1.TabIndex = 1;
             // 
             // menuStrip1
@@ -84,16 +82,25 @@
             this.scoreView1.BackColor = System.Drawing.Color.Black;
             this.scoreView1.Font = new System.Drawing.Font("Cambria", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreView1.ForeColor = System.Drawing.Color.White;
-            this.scoreView1.Location = new System.Drawing.Point(440, 450);
+            this.scoreView1.Location = new System.Drawing.Point(440, 461);
             this.scoreView1.Name = "scoreView1";
-            this.scoreView1.Size = new System.Drawing.Size(220, 39);
+            this.scoreView1.Size = new System.Drawing.Size(220, 29);
             this.scoreView1.TabIndex = 0;
+            // 
+            // stockView1
+            // 
+            this.stockView1.BackColor = System.Drawing.Color.Black;
+            this.stockView1.Location = new System.Drawing.Point(20, 450);
+            this.stockView1.Name = "stockView1";
+            this.stockView1.Size = new System.Drawing.Size(200, 40);
+            this.stockView1.TabIndex = 3;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(680, 508);
+            this.ClientSize = new System.Drawing.Size(680, 498);
+            this.Controls.Add(this.stockView1);
             this.Controls.Add(this.scoreView1);
             this.Controls.Add(this.mushroomView1);
             this.Controls.Add(this.panel1);
@@ -117,6 +124,7 @@
         private System.Windows.Forms.ToolStripMenuItem systemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stageToolStripMenuItem;
         private ScoreView scoreView1;
+        private StockView stockView1;
 
     }
 }

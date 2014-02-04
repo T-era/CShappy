@@ -18,26 +18,45 @@ namespace Jappy
     {
         private const int CLOCK_SIZE = 240;
         internal event Action OnChange;
+        internal event Action Animation;
+        internal event Action<int> OnRemainChange;
 
         internal readonly KeyboardControl control = new KeyboardControl();
         private readonly Field field;
+
         internal Field Field { get { return field; } }
         internal int Score { private set; get; }
         internal bool AnimationFlag { private set; get; }
+        private int remain;
+        internal int MeRemain
+        {
+            private set
+            {
+                if (remain != value)
+                {
+                    remain = value;
+                    OnRemainChange(remain);
+                }
+            }
+            get { return remain; }
+        }
 
-        private bool suspended;
+        private bool suspended = true;
         private System.Threading.Timer timer;
         internal Context(Field field)
         {
-            Score = 0;
             OnChange += () => { };
+            OnRemainChange += (a) => { };
+
+            Score = 0;
+            MeRemain = 5;
             this.field = field;
             timer = new System.Threading.Timer(Step, null, 0, CLOCK_SIZE);
+            Animation += () => { AnimationFlag = !AnimationFlag; };
         }
 
         internal void Restart(bool decrementMe)
         {
-            // TODO dec
             suspended = false;
         }
 
@@ -59,9 +78,12 @@ namespace Jappy
                 alive = alive && MoveChars();
                 Animation();
                 OnChange();
-                if (!alive
-                    || Cleared())
+                if (!alive) {
+                    MeRemain--;
                     suspended = true;
+                } else if (Cleared()) {
+                    suspended = true;
+                }
             }
         }
 
@@ -131,7 +153,7 @@ namespace Jappy
                 }
             });
         }
-        private void Animation() { AnimationFlag = !AnimationFlag; }
+//        private void Animation() { AnimationFlag = !AnimationFlag; }
         private bool Fall()
         {
             bool alive = true;
@@ -176,7 +198,7 @@ namespace Jappy
                             }
                             else if (under is Me)
                             {
-                                // TODO ((Me)under).Crush();
+                                ((Me)under).Crush();
                                 alive = false;
                                 cancelFall = true;
                             }
@@ -202,6 +224,7 @@ namespace Jappy
                     alive = alive && item.Move(field);
                 });
             }
+            if (!alive) field.Me.Crush();
             return alive;
         }
         private bool MoveMe()

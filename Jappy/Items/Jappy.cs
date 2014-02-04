@@ -28,6 +28,9 @@ namespace Jappy.Items
             typeof(Me).Assembly.GetManifestResourceStream("Jappy.Images.Jappy_R1.bmp"));
         private readonly static Image image_r2 = Image.FromStream(
             typeof(Me).Assembly.GetManifestResourceStream("Jappy.Images.Jappy_R2.bmp"));
+        private readonly static Image image_dying = Image.FromStream(
+            typeof(Me).Assembly.GetManifestResourceStream("Jappy.Images.Jappy_Dying.bmp"));
+        private bool dying = false;
         private Direction direction = Direction.Down;
         internal Direction Direction { get { return direction; } }
         public override int Width { get { return 2; } }
@@ -37,7 +40,11 @@ namespace Jappy.Items
         protected override void DrawAt(Graphics g, int x, int y, bool animMode)
         {
             Image image = null;
-            if (direction == Direction.Down)
+            if (dying)
+            {
+                image = image_dying;
+            }
+            else if (direction == Direction.Down)
             {
                 image = animMode ? image_d1 : image_d2;
             }
@@ -57,6 +64,33 @@ namespace Jappy.Items
         }
         public void setDirection(Direction d) {
             this.direction = d;
+        }
+        public void Crush()
+        {
+            dying = true;
+        }
+        public static Image GetThumbnail(int mode)
+        {
+            switch (mode)
+            {
+                case 0:
+                    return image_d1;
+                case 1:
+                    return image_d2;
+                case 2:
+                    return image_d1;
+                case 3:
+                    return image_d2;
+                case 4:
+                    return image_d1;
+                case 5:
+                    return image_u1;
+                case 6:
+                    return image_u2;
+                case 7:
+                    return image_dying;
+            }
+            return null;
         }
     }
 }

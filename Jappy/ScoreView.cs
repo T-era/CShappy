@@ -48,7 +48,7 @@ namespace Jappy
             this._label.AutoSize = true;
             this._label.Font = new System.Drawing.Font("HGP創英角ﾎﾟｯﾌﾟ体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this._label.ForeColor = System.Drawing.Color.White;
-            this._label.Location = new System.Drawing.Point(3, 10);
+            this._label.Location = new System.Drawing.Point(3, 8);
             this._label.Name = "_label";
             this._label.Size = new System.Drawing.Size(71, 19);
             this._label.TabIndex = 0;
@@ -61,7 +61,7 @@ namespace Jappy
             this.score.BackColor = System.Drawing.Color.Black;
             this.score.Font = new System.Drawing.Font("HGP創英角ﾎﾟｯﾌﾟ体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.score.ForeColor = System.Drawing.Color.White;
-            this.score.Location = new System.Drawing.Point(80, 3);
+            this.score.Location = new System.Drawing.Point(80, 2);
             this.score.Name = "score";
             this.score.ReadOnly = true;
             this.score.Size = new System.Drawing.Size(137, 31);
@@ -69,6 +69,7 @@ namespace Jappy
             this.score.TabStop = false;
             this.score.Text = "1234567";
             this.score.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.score.BorderStyle = System.Windows.Forms.BorderStyle.None;
             // 
             // ScoreView
             // 
@@ -78,10 +79,9 @@ namespace Jappy
             this.Font = new System.Drawing.Font("Cambria", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "ScoreView";
-            this.Size = new System.Drawing.Size(220, 39);
+            this.Size = new System.Drawing.Size(220, 29);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Jappy
             new DatStage("Jappy.StageDat.Guillotine.dat"),
             new DatStage("Jappy.StageDat.Stairs.dat"),
             new DatStage("Jappy.StageDat.RainyDay.dat"),
-            new WellStage(),
+            new DatStage("Jappy.StageDat.Well.dat"),
             new GunManStage(),
         };
         private readonly Context context;
@@ -37,8 +37,8 @@ namespace Jappy
             InitializeComponent();
             this.context = new Context(field);
             this.panel1.Context = this.context;
-
-field.SetStage(Stages[6]);
+            this.context.Animation += stockView1.Animation;
+            this.context.OnRemainChange += stockView1.OnStockChange;
             field.mushroomChanged += mushroomView1.OnInPocketChange;
             field.scoreChanged += scoreView1.OnScoreChange;
             for (int i = 0; i < Stages.Length; i++)

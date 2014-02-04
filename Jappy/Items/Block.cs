@@ -22,5 +22,9 @@ namespace Jappy.Items
         {
             g.DrawImage(image, x, y, GameView.BLOCK_SIZE, GameView.BLOCK_SIZE);
         }
+        internal void DrawAt(Graphics g, int x, int y)
+        {
+            this.DrawAt(g, x, y, false);
+        }
     }
 }
